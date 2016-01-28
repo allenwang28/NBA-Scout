@@ -7,13 +7,16 @@ class Player:
         print "Processing " + playerName
         self.name = playerName
         self.ID = playerID
-        self.career = p.PlayerCareer(self.ID)
+        try:
+            self.career = p.PlayerCareer(self.ID)
+        except:
+            print "There was an error with " + playerName
+            self.career = None
 
-    def collegeStats(self):
-        return self.career.career_college_season_totals()
-#        return self.career.college_season_totals()
-
-    def nbaStats(self):
-        return self.career.regular_season_career_totals()
-#        return self.career.regular_season_totals()
+        if self.career:
+            self.collegeStats = self.career.career_college_season_totals()
+            self.regStats = self.career.regular_season_career_totals()
+        else: 
+            self.collegeStats = None
+            self.regStats = None
 
